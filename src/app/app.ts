@@ -67,23 +67,32 @@ let button = new Button({ cssClass: `e-primary`, content: 'get rule' }, '#getrul
 
 
 document.getElementById('getrule').onclick = (): void => {
+    const parse = (data: RuleModel) => {
+        const result = {};
+        const o = data.condition === "or" ? "any" : "all";
+        result[o] = [];
+        if (data.rules && data.rules.length) {
+          for (let i = 0; i < data.rules.length; ++i) {
+            if (data.rules[i].condition) {
+              result[o][i] = parse(data.rules[i]);
+            }
+             else {
+              result[o][i] = {
+                fact: data.rules[i].field,
+                operator: data.rules[i].operator,
+                value: data.rules[i].value,
+              };
+            }
+          }
+        }
+        return result;
+      };
+    
     let validRule: RuleModel = qryBldrObj.getValidRules(qryBldrObj.rule);
     //  dialogObj.content = '<pre>' + JSON.stringify(validRule, null, 4) + '</pre>';
     //  dialogObj.show();
-    delete validRule.label;
 
-    let result = JSON.stringify(validRule);
-        // .replace(/,/g, ", ")
-        // .replace(/"label":.{2,100}(field")/mg, "fact")
-        // .replace(/\"/gm, "'")
-        // .replace(/'value'/gm, "value")
-        // .replace(/'operator'/gm, "operator")
-        // .replace(/'type':.{2,30}(value)/mg, "value")
-        // .replace(/'condition':'/gm, "")
-        // .replace(/or'/gm, "anyRegex")
-        // .replace(/and'/gm, "allRegex")
-        // .replace(/Regex.{2,8}rules'/gm, "");
+    let result = JSON.stringify(parse(validRule));
 
     (<HTMLInputElement>document.getElementById("conditions-value")).value = result;
-    // console.log(result);
 }
