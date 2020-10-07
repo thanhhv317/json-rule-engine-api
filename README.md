@@ -73,3 +73,4 @@ You can also refer the below resources to know more details about Essential JS 2
 
 * [Pure JS Demos](http://ej2.syncfusion.com/demos/)
 * [Pure JS Documentation](http://ej2.syncfusion.com/documentation/)
+# json-rule-engine-view
