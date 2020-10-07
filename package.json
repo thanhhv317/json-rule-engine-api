@@ -4,10 +4,6 @@
     "description": "Essential JS 2 typescript quick start application",
     "author": "Syncfusion Inc.",
     "license": "SEE LICENSE IN license",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/syncfusion/ej2-quickstart.git"
-    },
     "dependencies": {
         "@syncfusion/ej2": "*"
     },
